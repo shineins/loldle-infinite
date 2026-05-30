@@ -1,0 +1,411 @@
+/* ==========================================================================
+   GLOBAL STYLES & TYPOGRAPHY
+   ========================================================================== */
+body {
+    background-color: #010a13;
+    color: #f0e6d2;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #c8aa6e;
+    letter-spacing: 2px;
+    font-size: 2.5em;
+    margin-bottom: 5px;
+    text-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
+}
+
+p {
+    color: #a09b8c;
+}
+
+/* ==========================================================================
+   GAME CONTROLS (Inputs & Buttons)
+   ========================================================================== */
+.controls {
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+input {
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 3px;
+    border: 1px solid #c8aa6e;
+    background-color: #091428;
+    color: #f0e6d2;
+    outline: none;
+    width: 250px;
+}
+
+input::placeholder {
+    color: #5c5b57;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #1e2328;
+    color: #c8aa6e;
+    border: 1px solid #c8aa6e;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: inset 0 0 5px #000000;
+}
+
+button:hover {
+    background-color: #c8aa6e;
+    color: #010a13;
+    box-shadow: 0 0 10px #c8aa6e;
+}
+
+button:disabled {
+    border-color: #333;
+    color: #555;
+    cursor: not-allowed;
+    background-color: #111;
+    box-shadow: none;
+}
+
+/* ==========================================================================
+   RESULTS TABLE
+   ========================================================================== */
+.table-container {
+    overflow-x: auto;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 8px;
+    margin-top: 20px;
+}
+
+th {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #c8aa6e;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #c8aa6e;
+}
+
+td {
+    width: 11%;
+    padding: 10px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    background-color: #1e282d;
+    border: 2px solid #010a13;
+    border-radius: 5px;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
+    text-transform: capitalize;
+}
+
+/* Champion Image Cell */
+.champ-cell {
+    text-align: center;
+    vertical-align: middle;
+    padding: 8px;
+}
+
+.champ-icon {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* LoLdle Colors */
+.correct {
+    background-color: #08c02c;
+    color: #010a13;
+    border-color: #05e6b4;
+}
+
+.partial {
+    background-color: #db830c;
+    color: #010a13;
+    border-color: #f7931a;
+}
+
+.incorrect {
+    background-color: #d41b16;
+    color: #fff;
+    border-color: #ea4335;
+}
+
+/* Year Arrows */
+.arrow-up::after {
+    content: " ▲";
+    font-size: 0.9em;
+}
+
+.arrow-down::after {
+    content: " ▼";
+    font-size: 0.9em;
+}
+
+/* ==========================================================================
+   AUTOCOMPLETE DROPDOWN STYLES
+   ========================================================================== */
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #c8aa6e;
+    border-top: none;
+    z-index: 99;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #1a2128;
+    max-height: 250px;
+    overflow-y: auto;
+    border-radius: 0 0 3px 3px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #2a333d;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #f0e6d2;
+    font-size: 16px;
+    text-align: left;
+}
+
+.autocomplete-items div img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 1px solid #000;
+}
+
+/* Hover and keyboard selection effects */
+.autocomplete-items div:hover,
+.autocomplete-active {
+    background-color: #2a333d;
+    color: #c8aa6e;
+}
+
+/* ==========================================================================
+   GUIDE & LEGEND
+   ========================================================================== */
+.guide-container {
+    max-width: 800px;
+    margin: 40px auto 20px auto;
+    padding: 25px;
+    background-color: #091428;
+    border: 1px solid #c8aa6e;
+    border-radius: 3px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.guide-container h2 {
+    color: #c8aa6e;
+    margin-top: 0;
+    text-transform: uppercase;
+    font-size: 1.3em;
+    letter-spacing: 1px;
+    text-align: center;
+    border-bottom: 1px solid rgba(200, 170, 110, 0.3);
+    padding-bottom: 10px;
+}
+
+.guide-container p {
+    color: #f0e6d2;
+    line-height: 1.5;
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+.legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.color-box {
+    width: 35px;
+    height: 35px;
+    border-radius: 3px;
+    border: 2px solid #010a13;
+    flex-shrink: 0;
+}
+
+.arrow-box {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1e282d;
+    border: 2px solid #010a13;
+    border-radius: 3px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.legend-item span {
+    color: #a09b8c;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.legend-item strong {
+    color: #c8aa6e;
+}
+
+/* ==========================================================================
+   ANIMATIONS & EFFECTS
+   ========================================================================== */
+.victory-message {
+    display: none;
+    margin: 20px auto;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.victory-message h2 {
+    color: #c8aa6e;
+    font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(200, 170, 110, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Pop-in Animation */
+@keyframes popIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVE STYLES (MEDIA QUERIES)
+   ========================================================================== */
+/* Activates on screens smaller than 768px (smartphones and small tablets) */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Smaller logo and headings */
+    svg[alt="Loldle Logo"] {
+        max-width: 280px !important;
+        margin-bottom: 10px !important;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    /* 2. Vertically stacked game controls */
+    .controls {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+
+    .search-container, #guessInput {
+        width: 100% !important;
+    }
+
+    #guessBtn, #newGameBtn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* 3. TABLE TRICK: enables horizontal scrolling */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; 
+        margin-top: 15px;
+        padding: 0 5px;
+        box-sizing: border-box;
+    }
+
+    /* 4. Shrink cells and text for better visibility */
+    table {
+        min-width: 600px;
+    }
+
+    th, td {
+        padding: 6px 4px !important;
+        font-size: 12px !important; 
+    }
+
+    /* 5. Slightly smaller champion icons */
+    .champ-icon {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    /* 6. Guide and legend adjustments */
+    .guide-container {
+        margin: 20px 15px;
+        padding: 15px;
+    }
+
+    .legend {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+
+/* ==========================================================================
+   FOOTER (COPYRIGHT)
+   ========================================================================== */
+footer {
+    text-align: center;
+    padding: 30px 15px;
+    margin-top: 50px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
+    color: #888; 
+    font-size: 0.9rem;
+    font-family: Arial, sans-serif;
+}
+
+footer strong {
+    color: #d4af37; 
+}
+
+footer .disclaimer {
+    font-size: 0.75rem;
+    margin-top: 5px;
+    color: #555;
+}
