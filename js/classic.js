@@ -61,7 +61,7 @@ function startNewGame() {
     // Pick a random target champion
     const randomIndex = Math.floor(Math.random() * champions.length);
     targetChampion = champions[randomIndex];
-    console.log("Secret Champion:", targetChampion.name); // Debug mode
+    //console.log("Secret Champion:", targetChampion.name); // Debug mode
 
     // Reset UI and state
     document.getElementById('resultsBody').innerHTML = '';
