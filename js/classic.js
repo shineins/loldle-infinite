@@ -61,7 +61,7 @@ function startNewGame() {
     // Pick a random target champion
     const randomIndex = Math.floor(Math.random() * champions.length);
     targetChampion = champions[randomIndex];
-    //console.log("Secret Champion:", targetChampion.name); // Debug mode
+    console.log("Secret Champion:", targetChampion.name); // Debug mode
 
     // Reset UI and state
     document.getElementById('resultsBody').innerHTML = '';
@@ -87,10 +87,16 @@ function checkArrayMatch(guessArr, targetArr) {
 }
 
 // Helper to create table cells
-function createCell(text, className) {
+function createCell(text, className, originalData = null) {
     const td = document.createElement('td');
     td.textContent = text || "-";
     td.className = className;
+    
+    // If there is original data, hide it in the HTML and add a tracking class
+    if (originalData) {
+        td.setAttribute('data-original', originalData);
+        td.classList.add('translatable-cell');
+    }
     return td;
 }
 
@@ -113,20 +119,20 @@ function makeGuess() {
     imgCell.innerHTML = `<img src="${imgUrl}" class="champ-icon" alt="${guessObj.name}" title="${guessObj.name}">`;
     tr.appendChild(imgCell);
 
-    // 2. GENDER
-    tr.appendChild(createCell(translateTerm(guessObj.gender), guessObj.gender === targetChampion.gender ? 'correct' : 'incorrect'));
+    // 2. GENDER 
+    tr.appendChild(createCell(translateTerm(guessObj.gender), guessObj.gender === targetChampion.gender ? 'correct' : 'incorrect', guessObj.gender));
     
-    // 3. POSITION 
-    tr.appendChild(createCell(translateArray(guessObj.lane), checkArrayMatch(guessObj.lane, targetChampion.lane)));
+    // 3. POSITION (Array joined into a string so it can be saved)
+    tr.appendChild(createCell(translateArray(guessObj.lane), checkArrayMatch(guessObj.lane, targetChampion.lane), guessObj.lane.join(', ')));
     
-    // 4. CLASS 
-    tr.appendChild(createCell(translateArray(guessObj.genre), checkArrayMatch(guessObj.genre, targetChampion.genre)));
+    // 4. CLASS (Array joined into a string so it can be saved)
+    tr.appendChild(createCell(translateArray(guessObj.genre), checkArrayMatch(guessObj.genre, targetChampion.genre), guessObj.genre.join(', ')));
     
     // 5. RESOURCE 
-    tr.appendChild(createCell(translateTerm(guessObj.resource), guessObj.resource === targetChampion.resource ? 'correct' : 'incorrect'));
+    tr.appendChild(createCell(translateTerm(guessObj.resource), guessObj.resource === targetChampion.resource ? 'correct' : 'incorrect', guessObj.resource));
     
     // 6. RANGE 
-    tr.appendChild(createCell(translateTerm(guessObj.attackType), guessObj.attackType === targetChampion.attackType ? 'correct' : 'incorrect'));
+    tr.appendChild(createCell(translateTerm(guessObj.attackType), guessObj.attackType === targetChampion.attackType ? 'correct' : 'incorrect', guessObj.attackType));
     
     // 7. REGION 
     tr.appendChild(createCell(guessObj.region.join(", "), checkArrayMatch(guessObj.region, targetChampion.region)));
@@ -373,6 +379,23 @@ function setLanguage(lang) {
     document.getElementById('t-leg-partial').innerHTML = t.legPartial;
     document.getElementById('t-leg-wrong').innerHTML = t.legWrong;
     document.getElementById('t-leg-arrows').innerHTML = t.legArrows;
+
+    // Find all cells of already guessed champions that have the tracking class
+    const translatableCells = document.querySelectorAll('.translatable-cell');
+    
+    translatableCells.forEach(cell => {
+        // Retrieve the hidden original English word
+        const originalText = cell.getAttribute('data-original');
+        
+        // If there's a comma, it means it was an Array (e.g., "Top, Mid")
+        if (originalText.includes(', ')) {
+            const arr = originalText.split(', ');
+            cell.textContent = translateArray(arr); // Translate it back as an Array
+        } else {
+            // Otherwise it was a single word (e.g., "Mana")
+            cell.textContent = translateTerm(originalText);
+        }
+    });
 }
 
 // Load saved language preference on startup
