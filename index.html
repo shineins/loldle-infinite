@@ -1,9 +1,3 @@
-<!-- scegliere freccette
-    gestire date mancanti (es. Yunara, Zaahen)
-    fixare problema con json
-    traduzione in inglese e italiano
-    inserire su github
-    -->
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -11,254 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LoLdle</title>
     <link rel="icon" type="image/png" href="https://i.pinimg.com/736x/d1/b1/1d/d1b11d5e4dbae547ac0d651476cec488.jpg">
-    <style>
-        /* Stile tema League of Legends / Loldle */
-        body {
-            background-color: #010a13;
-            color: #f0e6d2;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            color: #c8aa6e;
-            letter-spacing: 2px;
-            font-size: 2.5em;
-            margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(200, 170, 110, 0.3);
-        }
-        p {
-            color: #a09b8c;
-        }
-        .controls {
-            margin: 30px 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        input {
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 3px;
-            border: 1px solid #c8aa6e;
-            background-color: #091428;
-            color: #f0e6d2;
-            outline: none;
-            width: 250px;
-        }
-        input::placeholder {
-            color: #5c5b57;
-        }
-        button {
-            padding: 12px 20px;
-            font-size: 16px;
-            text-transform: uppercase;
-            font-weight: bold;
-            background-color: #1e2328;
-            color: #c8aa6e;
-            border: 1px solid #c8aa6e;
-            border-radius: 3px;
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            box-shadow: inset 0 0 5px #000000;
-        }
-        button:hover {
-            background-color: #c8aa6e;
-            color: #010a13;
-            box-shadow: 0 0 10px #c8aa6e;
-        }
-        button:disabled {
-            border-color: #333;
-            color: #555;
-            cursor: not-allowed;
-            background-color: #111;
-            box-shadow: none;
-        }
-        
-        /* Tabella risultati */
-        .table-container {
-            overflow-x: auto;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 8px;
-            margin-top: 20px;
-        }
-        th {
-            font-size: 12px;
-            text-transform: uppercase;
-            color: #c8aa6e;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #c8aa6e;
-        }
-        td {
-            width: 11%;
-            padding: 10px 5px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 14px;
-            background-color: #1e282d;
-            border: 2px solid #010a13;
-            border-radius: 5px;
-            vertical-align: middle;
-            transition: transform 0.3s ease;
-            text-transform: capitalize;
-        }
-        
-        /* Immagine Campione */
-        .champ-cell {
-            text-align: center;
-            vertical-align: middle;
-            padding: 8px; /* Riempie bene la cella */
-        }
-        .champ-icon {
-            width: 65px;
-            height: 65px;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 5px;
-            display: block;
-            margin: 0 auto; /* Centra l'immagine orizzontalmente */
-        }
-        
-        /* Colori di Loldle */
-        .correct { background-color: #08c02c; color: #010a13; border-color: #05e6b4; }
-        .partial { background-color: #db830c; color: #010a13; border-color: #f7931a; }
-        .incorrect { background-color: #d41b16; color: #fff; border-color: #ea4335; }
-        
-        /* Frecce Anno */
-        .arrow-up::after { content: " ▲"; font-size: 0.9em; }
-        .arrow-down::after { content: " ▼"; font-size: 0.9em; }
-        /* Stile per il menu a tendina di ricerca */
-        .search-container {
-            position: relative;
-            display: inline-block;
-        }
-        .autocomplete-items {
-            position: absolute;
-            border: 1px solid #c8aa6e;
-            border-top: none;
-            z-index: 99;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background-color: #1a2128; /* Sfondo scuro simile alla foto */
-            max-height: 250px;
-            overflow-y: auto;
-            border-radius: 0 0 3px 3px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-        }
-        .autocomplete-items div {
-            padding: 10px;
-            cursor: pointer;
-            border-bottom: 1px solid #2a333d;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #f0e6d2;
-            font-size: 16px;
-            text-align: left;
-        }
-        .autocomplete-items div img {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border: 1px solid #000;
-        }
-        /* Effetto hover e selezione con freccette */
-        .autocomplete-items div:hover, .autocomplete-active {
-            background-color: #2a333d;
-            color: #c8aa6e;
-        }
-        /* Stile Guida e Legenda */
-        .guide-container {
-            max-width: 800px;
-            margin: 40px auto 20px auto;
-            padding: 25px;
-            background-color: #091428; /* Stesso sfondo blu scuro della barra di ricerca */
-            border: 1px solid #c8aa6e;
-            border-radius: 3px;
-            text-align: left;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-        }
-        .guide-container h2 {
-            color: #c8aa6e;
-            margin-top: 0;
-            text-transform: uppercase;
-            font-size: 1.3em;
-            letter-spacing: 1px;
-            text-align: center;
-            border-bottom: 1px solid rgba(200, 170, 110, 0.3);
-            padding-bottom: 10px;
-        }
-        .guide-container p {
-            color: #f0e6d2;
-            line-height: 1.5;
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 15px;
-        }
-        .legend {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Si adatta su PC e su Telefono in automatico */
-            gap: 15px;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .color-box {
-            width: 35px;
-            height: 35px;
-            border-radius: 3px;
-            border: 2px solid #010a13;
-            flex-shrink: 0; /* Impedisce al quadratino di restringersi */
-        }
-        .arrow-box {
-            width: 35px;
-            height: 35px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #1e282d;
-            border: 2px solid #010a13;
-            border-radius: 3px;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-        .legend-item span {
-            color: #a09b8c;
-            font-size: 14px;
-            line-height: 1.4;
-        }
-        .legend-item strong {
-            color: #c8aa6e;
-        }
-        .victory-message {
-            display: none; /* Nascosto di base */
-            margin: 20px auto;
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        .victory-message h2 {
-            color: #c8aa6e; /* Oro LoL */
-            font-size: 2.5em;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin: 0;
-            text-shadow: 0 0 20px rgba(200, 170, 110, 0.8), 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-        
-        /* Animazione a comparsa */
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-    </style>
+    <link rel="stylesheet" href="core.css">
 </head>
 <body>
 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 300' width='100%25' height='100%25'%3E%3Cdefs%3E%3CradialGradient id='tealSwirl' cx='40%25' cy='50%25' r='60%25'%3E%3Cstop offset='0%25' stop-color='%2300e5ff' /%3E%3Cstop offset='40%25' stop-color='%230088aa' /%3E%3Cstop offset='80%25' stop-color='%23003344' /%3E%3Cstop offset='100%25' stop-color='%2300111a' /%3E%3C/radialGradient%3E%3ClinearGradient id='goldGradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fdf2b8' /%3E%3Cstop offset='25%25' stop-color='%23d4af37' /%3E%3Cstop offset='50%25' stop-color='%238a5a19' /%3E%3Cstop offset='75%25' stop-color='%23d4af37' /%3E%3Cstop offset='100%25' stop-color='%23fdf2b8' /%3E%3C/linearGradient%3E%3Cfilter id='glow'%3E%3CfeGaussianBlur stdDeviation='4' result='blur' /%3E%3CfeComposite in='SourceGraphic' in2='blur' operator='over' /%3E%3C/filter%3E%3Cfilter id='dropShadow' x='-10%25' y='-10%25' width='130%25' height='130%25'%3E%3CfeDropShadow dx='3' dy='5' stdDeviation='4' flood-color='%23000' flood-opacity='0.8'/%3E%3C/filter%3E%3C/defs%3E%3Cpath d='M 50,150 C 150,30 250,170 400,50 C 550,170 650,30 750,150 C 650,270 550,130 400,250 C 250,130 150,270 50,150 Z' fill='url(%23tealSwirl)' stroke='url(%23goldGradient)' stroke-width='10' filter='url(%23dropShadow)' /%3E%3Cpath d='M 70,150 C 160,45 250,165 400,65 C 550,165 640,45 730,150 C 640,255 550,135 400,235 C 250,135 160,255 70,150 Z' fill='none' stroke='url(%23goldGradient)' stroke-width='3' opacity='0.8' /%3E%3Cpath d='M 120,150 Q 250,90 400,180 T 680,150 Q 550,210 400,120 T 120,150 Z' fill='none' stroke='%2300e5ff' stroke-width='2.5' filter='url(%23glow)' opacity='0.4'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Monotype Corsiva, Apple Chancery, Brush Script MT, cursive, serif' font-size='130' font-weight='bold' font-style='italic' letter-spacing='6' fill='%23000000' transform='translate(5, 6)'%3ELoLdle%3C/text%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Monotype Corsiva, Apple Chancery, Brush Script MT, cursive, serif' font-size='130' font-weight='bold' font-style='italic' letter-spacing='6' fill='url(%23goldGradient)' filter='url(%23dropShadow)'%3ELoLdle%3C/text%3E%3C/svg%3E" alt="Loldle Logo" style="max-width: 500px; display: block; margin: 0 auto 20px auto;">
@@ -333,11 +80,12 @@ let rawChampionsData = []; // La lista ora parte vuota
                 const versionRes = await fetch('https://ddragon.leagueoflegends.com/api/versions.json');
                 const versions = await versionRes.json();
                 latestVersion = versions[0];
-            } catch (error) {
-                console.warn("Errore API Riot, uso versione di base.", error);
-            }
 
-            // Normalizzo i dati... (tutto il resto del codice rimane identico)
+                const championsRes = await fetch('champions.json');
+                rawChampionsData = await championsRes.json();
+            } catch (error) {
+                console.warn("Error", error);
+            }
 
             // Normalizzo i dati forniti per semplificare i confronti (divido le stringhe in array dove serve)
             champions = rawChampionsData.map(c => ({
@@ -349,7 +97,7 @@ let rawChampionsData = []; // La lista ora parte vuota
                 resource: c.resource || "None",
                 attackType: c.attackType,
                 region: c.region,
-                releaseDate: c.releaseDate || 2025 // Gestisco l'assenza di date (es. Yunara, Zaahen)
+                releaseDate: c.releaseDate || 2025
             }));
 
             // Abilito i pulsanti
@@ -376,7 +124,7 @@ let rawChampionsData = []; // La lista ora parte vuota
             document.getElementById('victoryMessage').style.display = 'none';
             document.getElementById('guessInput').disabled = false;
             document.getElementById('guessBtn').disabled = false;
-                    }
+            }
 
         // 3. Logica di confronto per gli array (es. Ruolo: Mage, Support)
         function checkArrayMatch(guessArr, targetArr) {
