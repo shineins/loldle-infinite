@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+    <defs>
+        <!-- Sfondo interno magico: riprende il ciano e il blu scuro del cerchio della foto -->
+        <radialGradient id="tealSwirl" cx="40%" cy="50%" r="60%">
+            <stop offset="0%" stop-color="#00e5ff" />
+            <stop offset="40%" stop-color="#0088aa" />
+            <stop offset="80%" stop-color="#003344" />
+            <stop offset="100%" stop-color="#00111a" />
+        </radialGradient>
+
+        <!-- Gradiente Oro metallico per il testo e i bordi -->
+        <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fdf2b8" />
+            <stop offset="25%" stop-color="#d4af37" />
+            <stop offset="50%" stop-color="#8a5a19" />
+            <stop offset="75%" stop-color="#d4af37" />
+            <stop offset="100%" stop-color="#fdf2b8" />
+        </linearGradient>
+
+        <!-- Filtro per creare il bagliore magico interno (le onde energetiche) -->
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
+
+        <!-- Filtro ombra per staccare il logo dallo sfondo del sito -->
+        <filter id="dropShadow" x="-10%" y="-10%" width="130%" height="130%">
+            <feDropShadow dx="3" dy="5" stdDeviation="4" flood-color="#000" flood-opacity="0.8"/>
+        </filter>
+    </defs>
+
+    <!-- Sfondo principale a forma di onda/fiamma simmetrica -->
+    <path d="M 50,150 C 150,30 250,170 400,50 C 550,170 650,30 750,150 C 650,270 550,130 400,250 C 250,130 150,270 50,150 Z" 
+          fill="url(#tealSwirl)" 
+          stroke="url(#goldGradient)" stroke-width="10" 
+          filter="url(#dropShadow)" />
+          
+    <!-- Secondo bordo ondulato interno (per dare l'effetto della cornice in rilievo) -->
+    <path d="M 70,150 C 160,45 250,165 400,65 C 550,165 640,45 730,150 C 640,255 550,135 400,235 C 250,135 160,255 70,150 Z" 
+          fill="none" 
+          stroke="url(#goldGradient)" stroke-width="3" opacity="0.8" />
+
+    <!-- Onde di energia interne ciano (per simulare il fumo/magia dell'immagine) -->
+    <path d="M 120,150 Q 250,90 400,180 T 680,150 Q 550,210 400,120 T 120,150 Z" 
+          fill="none" stroke="#00e5ff" stroke-width="2.5" filter="url(#glow)" opacity="0.4"/>
+
+    <!-- Testo Ombra scura (spostata per dare spessore alla scritta) -->
+    <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" 
+          font-family="'Monotype Corsiva', 'Apple Chancery', 'Brush Script MT', cursive, serif" 
+          font-size="130" font-weight="bold" font-style="italic" letter-spacing="6"
+          fill="#000000" transform="translate(5, 6)">
+        LoLdle
+    </text>
+
+    <!-- Testo Elegante in Oro -->
+    <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" 
+          font-family="'Monotype Corsiva', 'Apple Chancery', 'Brush Script MT', cursive, serif" 
+          font-size="130" font-weight="bold" font-style="italic" letter-spacing="6"
+          fill="url(#goldGradient)" filter="url(#dropShadow)">
+        LoLdle
+    </text>
+</svg>
