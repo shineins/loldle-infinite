@@ -1,2 +1,3 @@
 # loldle-infinite
 LoLdle like website, but you can play as many times as you want.
+Loldle Infinite was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.
